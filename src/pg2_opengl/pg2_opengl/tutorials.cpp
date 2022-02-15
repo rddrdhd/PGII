@@ -431,14 +431,17 @@ int tutorial_7( const std::string & file_name )
 
 int tutorial_8()
 {
-	Texture3f image = Texture3f( "../../../data/denoise/color_2spp.exr" ); // linear HDR image
+	Texture3f image = Texture3f( "../../../data/denoise/color_100spp.exr" ); // linear HDR image
+	Texture3f albedo = Texture3f( "../../../data/denoise/albedo2_100spp.exr" ); // linear HDR image
+	Texture3f normal = Texture3f( "../../../data/denoise/normal_100spp.exr" ); // linear HDR image
+
 	const int width = image.width();
 	const int height = image.height();
 
 	void * colorPtr = image.data(); // how to get the raw pointer
+	void * albedoPtr = albedo.data();
+	void * normalPtr = normal.data(); 
 
-	void * albedoPtr = colorPtr; // TODO
-	void * normalPtr = colorPtr; // TODO
 
 	Texture3f output = Texture3f( width, height );
 	void * outputPtr = output.data();

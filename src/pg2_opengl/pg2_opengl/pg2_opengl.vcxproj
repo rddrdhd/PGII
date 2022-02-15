@@ -178,6 +178,7 @@
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\.gitignore" />
     <None Include="basic_shader.frag" />
     <None Include="basic_shader.vert" />
   </ItemGroup>

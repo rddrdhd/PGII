@@ -64,5 +64,6 @@
     <None Include="basic_shader.frag">
       <Filter>Source Files\opengl</Filter>
     </None>
+    <None Include="..\..\..\.gitignore" />
   </ItemGroup>
 </Project>
