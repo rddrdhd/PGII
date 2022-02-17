@@ -134,7 +134,7 @@ GLint CheckShader( const GLenum shader )
 
 /* create a window and initialize OpenGL context */
 int tutorial_1( const int width, const int height )
-{
+{// include opengl pomoci glad
 	glfwSetErrorCallback( glfw_callback );
 
 	if ( !glfwInit() )
@@ -145,7 +145,7 @@ int tutorial_1( const int width, const int height )
 	glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 4 );
 	glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 6 );
 	glfwWindowHint( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE );
-	glfwWindowHint( GLFW_SAMPLES, 8 );
+	glfwWindowHint( GLFW_SAMPLES, 8 ); // 8 samplu na pixel
 	glfwWindowHint( GLFW_RESIZABLE, GL_TRUE );
 	glfwWindowHint( GLFW_DOUBLEBUFFER, GL_TRUE );
 
@@ -156,10 +156,11 @@ int tutorial_1( const int width, const int height )
 		return EXIT_FAILURE;
 	}
 
-	glfwSetFramebufferSizeCallback( window, framebuffer_resize_callback );
-	glfwMakeContextCurrent( window );
+	glfwSetFramebufferSizeCallback( window, framebuffer_resize_callback ); // zavola se resize callback
+	glfwMakeContextCurrent( window ); //fukce opengl muzeme volat jen z vlakna, ze ktereho jsme hoh vytvorili. Drahe, ale funkcni.
 
-	if ( !gladLoadGLLoader( ( GLADloadproc )glfwGetProcAddress ) )
+	
+	if ( !gladLoadGLLoader( ( GLADloadproc )glfwGetProcAddress ) ) // umozni folani funkci z opengl
 	{
 		if ( !gladLoadGL() )
 		{
@@ -168,7 +169,7 @@ int tutorial_1( const int width, const int height )
 	}
 
 	glEnable( GL_DEBUG_OUTPUT );
-	glDebugMessageCallback( gl_callback, nullptr );
+	glDebugMessageCallback( gl_callback, nullptr ); // debugging je nahovno, tak tady aspon nejake zpravy o chybach
 
 	printf( "OpenGL %s, ", glGetString( GL_VERSION ) );
 	printf( "%s", glGetString( GL_RENDERER ) );
@@ -180,10 +181,10 @@ int tutorial_1( const int width, const int height )
 	// map from the range of NDC coordinates <-1.0, 1.0>^2 to <0, width> x <0, height>
 	glViewport( 0, 0, width, height );
 	// GL_LOWER_LEFT (OpenGL) or GL_UPPER_LEFT (DirectX, Windows) and GL_NEGATIVE_ONE_TO_ONE or GL_ZERO_TO_ONE
-	glClipControl( GL_UPPER_LEFT, GL_NEGATIVE_ONE_TO_ONE );
+	glClipControl( GL_UPPER_LEFT, GL_NEGATIVE_ONE_TO_ONE ); // od -1 do 1
 
 	// setup vertex buffer as AoS (array of structures)
-	GLfloat vertices[] =
+	GLfloat vertices[] = // buffer - staticke pole
 	{
 		-0.9f, 0.9f, 0.0f,  0.0f, 1.0f, // vertex 0 : p0.x, p0.y, p0.z, t0.u, t0.v
 		0.9f, 0.9f, 0.0f,   1.0f, 1.0f, // vertex 1 : p1.x, p1.y, p1.z, t1.u, t1.v
@@ -194,28 +195,34 @@ int tutorial_1( const int width, const int height )
 	// optional index array
 	unsigned int indices[] =
 	{
-		0, 1, 2
+		0, 1, 2 // nepouzivame indexaci vertexu
 	};
 
 	GLuint vao = 0;
-	glGenVertexArrays( 1, &vao );
-	glBindVertexArray( vao );
+	glGenVertexArrays( 1, &vao ); //vygeneruj mi jeden vertex array, dej mi jeho ID do vao. Vao udrzuje info okolo vsecho
+	glBindVertexArray( vao ); // "odted pouzivej vao pro vsec o potrebujes."
 	GLuint vbo = 0;
 	glGenBuffers( 1, &vbo ); // generate vertex buffer object (one of OpenGL objects) and get the unique ID corresponding to that buffer
 	glBindBuffer( GL_ARRAY_BUFFER, vbo ); // bind the newly created buffer to the GL_ARRAY_BUFFER target
 	glBufferData( GL_ARRAY_BUFFER, sizeof( vertices ), vertices, GL_STATIC_DRAW ); // copies the previously defined vertex data into the buffer's memory
 	// vertex position
-	glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, vertex_stride, 0 );
+	glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, vertex_stride, 0 ); // definujeme co jsme do bufferu na grafiku prave nasypali
+	// první 3 jsou nenormalizovane floaty, se skokem vertexh_stride (fyzicka velikost v bitech (tady 20), ne delka pole)
+	// 0, 3 = jakoby ID toho pointeru ve strukture
 	glEnableVertexAttribArray( 0 );
 	// vertex texture coordinates
 	glVertexAttribPointer( 1, 2, GL_FLOAT, GL_FALSE, vertex_stride, ( void * )( sizeof( float ) * 3 ) );
 	glEnableVertexAttribArray( 1 );
+	// indexy nepouzivame
 	GLuint ebo = 0; // optional buffer of indices
 	glGenBuffers( 1, &ebo );
 	glBindBuffer( GL_ELEMENT_ARRAY_BUFFER, ebo );
 	glBufferData( GL_ELEMENT_ARRAY_BUFFER, sizeof( indices ), indices, GL_STATIC_DRAW );
-
-	GLuint vertex_shader = glCreateShader( GL_VERTEX_SHADER );
+	// a máme model natazeny na grafice.
+	// 
+	// 
+	// jak jej zobrazit? vyrobim, zkompiluju a spustim shadery
+	GLuint vertex_shader = glCreateShader( GL_VERTEX_SHADER );// zodpovedny za transformace z modeloveho prostoru do clip space
 	std::vector<char> shader_source;
 	if ( LoadShader( "basic_shader.vert", shader_source ) == S_OK )
 	{
@@ -225,8 +232,8 @@ int tutorial_1( const int width, const int height )
 	}
 	CheckShader( vertex_shader );
 
-	GLuint fragment_shader = glCreateShader( GL_FRAGMENT_SHADER );
-	if ( LoadShader( "basic_shader.frag", shader_source ) == S_OK )
+	GLuint fragment_shader = glCreateShader( GL_FRAGMENT_SHADER );// zodpovedny za barvickyy
+	if ( LoadShader( "basic_shader.frag", shader_source ) == S_OK ) 
 	{
 		const char * tmp = static_cast< const char * >( &shader_source[0] );
 		glShaderSource( fragment_shader, 1, &tmp, nullptr );
@@ -239,7 +246,7 @@ int tutorial_1( const int width, const int height )
 	glAttachShader( shader_program, fragment_shader );
 	glLinkProgram( shader_program );
 	// TODO check linking
-	glUseProgram( shader_program );
+	glUseProgram( shader_program ); // pro vykreslovani dalsich objektu pouzij ty shadery
 
 	glPointSize( 10.0f );
 	glLineWidth( 1.0f );
@@ -248,23 +255,27 @@ int tutorial_1( const int width, const int height )
 	// main loop
 	while ( !glfwWindowShouldClose( window ) )
 	{
+		// colorBuffer vymazu barvu
 		glClearColor( 0.2f, 0.3f, 0.3f, 1.0f ); // state setting function
 		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT ); // state using function
 
 		GLint viewport[4];
 		glGetIntegerv( GL_VIEWPORT, viewport );
+		//TODO spocitat si 
+		//spocitam si projekcni matici, tohle je ortoprojekce bo nastavuju jen ty dva prvky
 		Matrix4x4 P = Matrix4x4();
 		//P.set( 0, 0, float( std::min( viewport[2], viewport[3] ) ) / viewport[2] );
 		//P.set( 1, 1, float( std::min( viewport[2], viewport[3] ) ) / viewport[3] );
 		P.set( 0, 0, 100 * 2.0f / viewport[2] );
 		P.set( 1, 1, 100 * 2.0f / viewport[3] );
-		SetMatrix4x4( shader_program, P.data(), "P" );
-
+		SetMatrix4x4( shader_program, P.data(), "P" );//uniformni promennou P v tom shaderu - presypu si data z GPU na CPU pro kazdy fraem
+		//nabinduju si svuj vao objekt
 		glBindVertexArray( vao );
 
-		glDrawArrays( GL_POINTS, 0, 3 );
-		glDrawArrays( GL_LINE_LOOP, 0, 3 );
-		glDrawArrays( GL_TRIANGLES, 0, 3 );
+		//a vykreslim si to
+		glDrawArrays( GL_POINTS, 0, 3 ); // projit pole a vykreslit puntiky
+		glDrawArrays( GL_LINE_LOOP, 0, 3 ); // projit pole a vykreslit hrany
+		glDrawArrays( GL_TRIANGLES, 0, 3 ); // projit pole a vykreslit trojuhelnik
 		//glDrawElements( GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0 ); // optional - render from an index buffer
 
 		glfwSwapBuffers( window );
@@ -340,6 +351,8 @@ int tutorial_6()
 	Vector3 x, y, z = Vector3( 1, 2, 3 );
 	Matrix3x3 Rx = Matrix3x3( x, y, z );
 	Matrix3x3 Rxt = Rx.Transpose();
+	//Matrix4x4 M = Matrix4x4(x,y,z,eye)
+	//V.EuclideanInverse()
 
 	return 0;
 }
