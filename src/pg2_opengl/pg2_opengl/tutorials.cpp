@@ -279,9 +279,11 @@ int tutorial_1( const int width, const int height )
 		//glDrawElements( GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0 ); // optional - render from an index buffer
 
 		glfwSwapBuffers( window );
-		glfwPollEvents();
+		glfwPollEvents(); // cteme vstupy z klaves
+		// a jedu znovu pro dalsi frame
 	}
 
+	// vycistim pred koncem
 	glDeleteShader( vertex_shader );
 	glDeleteShader( fragment_shader );
 	glDeleteProgram( shader_program );
@@ -359,8 +361,8 @@ int tutorial_6()
 
 /* loading scene graph from obj file */
 int tutorial_7( const std::string & file_name )
-{
-	SceneGraph scene;
+{	//ukazka jak nacist obj
+	SceneGraph scene; // scena a materialy
 	MaterialLibrary materials;
 
 	LoadOBJ( file_name, scene, materials );
@@ -382,8 +384,8 @@ int tutorial_7( const std::string & file_name )
 	} dst_triangle;
 
 	std::vector<TriangleWithAdjacency> triangles;
-
-	for ( SceneGraph::iterator iter = scene.begin(); iter != scene.end(); ++iter )
+	// dostat se k jedotlivym geometriim z .obj
+	for ( SceneGraph::iterator iter = scene.begin(); iter != scene.end(); ++iter ) //pro kazdy mesh
 	{
 		const std::string & node_name = iter->first;
 		const auto & node = iter->second;
@@ -392,7 +394,7 @@ int tutorial_7( const std::string & file_name )
 
 		if ( mesh )
 		{
-			for ( Mesh::iterator iter = mesh->begin(); iter != mesh->end(); ++iter )
+			for ( Mesh::iterator iter = mesh->begin(); iter != mesh->end(); ++iter ) // pro kazdy trojuhelnik
 			{
 				const auto & src_triangle = Triangle3i( **iter );
 				std::shared_ptr<Material> material = iter.triangle_material();
@@ -400,7 +402,7 @@ int tutorial_7( const std::string & file_name )
 
 				printf( "Triangle:\n" );
 
-				for ( int i = 0; i < 3; ++i )
+				for ( int i = 0; i < 3; ++i ) //pro kazdy bod
 				{
 					dst_triangle.vertices[i * 2].position = src_triangle.position( i );
 					dst_triangle.vertices[i * 2].position.Print();
@@ -490,5 +492,9 @@ int tutorial_8()
 
 	output.Save( "../../../data/denoise/output.exr" );
 
+	return 0;
+}
+
+int my_tut() {
 	return 0;
 }
