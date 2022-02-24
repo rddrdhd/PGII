@@ -6,8 +6,8 @@
 #include "color.h"
 #include "texture.h"
 #include "objloader.h"
-#include "Camera.h"
-#include "Rasterizer.h"
+#include "my_classes/Camera.h"
+#include "my_classes/Rasterizer.h"
 #include <OpenImageDenoise/oidn.h>
 
 /* OpenGL check state */
@@ -177,6 +177,8 @@ int tutorial_1( const int width, const int height )
 	printf( "%s", glGetString( GL_RENDERER ) );
 	printf( " (%s)\n", glGetString( GL_VENDOR ) );
 	printf( "GLSL %s\n", glGetString( GL_SHADING_LANGUAGE_VERSION ) );
+
+	check_gl();
 
 	glEnable( GL_MULTISAMPLE );
 
@@ -512,6 +514,14 @@ int tutorial_8()
 }
 
 int my_tut() {
+	// Input Assembler (get the vertexes)
+	// Vertex Shader (make structs, VOA, BOA...)
+	// Tesselation (Hull Shader, Tesselator, Domain Shader) -  primitive and outputs triangle version of it - low poly->high poly
+	// Geometry Shader takes the primitive and returns more complex object (pyramid from tringle, triangles from line, dot from a vertex)
+	// Rasterizer takes the objects and pixelate only the visible scene from camera (can apply Depth buffer)
+	// Pixel Shader takes texture and sampler, returns color
+	// Output Merger takes color and depth and returs better color. Can apply blending from Render Target and Depth Buffer
+
 	Rasterizer rasterizer = Rasterizer(640, 720, 0.66, Vector3(10,0,10),Vector3(0,0,0));
 	return 0;
 }
