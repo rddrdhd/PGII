@@ -6,6 +6,8 @@
 #include "color.h"
 #include "texture.h"
 #include "objloader.h"
+#include "Camera.h"
+#include "Rasterizer.h"
 #include <OpenImageDenoise/oidn.h>
 
 /* OpenGL check state */
@@ -496,5 +498,7 @@ int tutorial_8()
 }
 
 int my_tut() {
+	Rasterizer rasterizer = Rasterizer(640, 720, 0.66, Vector3(10,0,10),Vector3(0,0,0));
+	Camera camera = Camera();
 	return 0;
 }

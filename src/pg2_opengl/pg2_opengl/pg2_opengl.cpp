@@ -12,6 +12,7 @@ int main()
 	//return tutorial_4( "../../../data/environments/abandoned_hopper_terminal_04_1k.exr" );
 	//return tutorial_5();
 	//return tutorial_6();
-	return tutorial_7( "../../../data/adjacent_triangles.obj" ); //jeden trojuhelnik slozeny ze 4
+	//return tutorial_7( "../../../data/adjacent_triangles.obj" ); //jeden trojuhelnik slozeny ze 4
 	//return tutorial_8();
+	return my_tut();
 }

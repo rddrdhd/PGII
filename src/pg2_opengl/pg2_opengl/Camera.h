@@ -10,27 +10,31 @@
 
 class Camera
 {
-	
-public:
+private:
 	int width_; // image width (px)
 	int height_; // image height (px)
 	float fov_y_; // vertical field of view (radians)
+	float fov_x_; // horizontal field of view (radians)
 	Vector3 view_from_; // eye
 	Vector3 view_at_; // what ya lookin at
+	Vector3 view_direction_;
 	Vector3 up_; // up vector
-	Matrix4x4 view_; // idk
 	float near_plane_distance_;
 	float far_plane_distance_;
-	Matrix4x4 M_c_w_;
+	// MVP = Model View Projection (matrixes)
+	Matrix4x4 view_matrix_; // MCW
+	Matrix4x4 projection_matrix_; //
+	
+public:
 
 	Camera();
 	Camera(const int width, const int height, const float fov_y,
-		const Vector3 view_from, const Vector3 view_at);
+		const Vector3 view_from, const Vector3 view_at, const float far_plane, const float near_plane);
 
 	int buildViewMatrix();
 	int buildProjectionMatrix();
 
-	int update();
+	void update(int width, int height);
 };
 
 

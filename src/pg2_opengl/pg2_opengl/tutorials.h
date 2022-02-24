@@ -20,6 +20,7 @@ int tutorial_5();
 int tutorial_6();
 int tutorial_7( const std::string & file_name );
 int tutorial_8();
+int my_tut();
 
 
 #endif

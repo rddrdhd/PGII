@@ -9,7 +9,6 @@ public:
 	Rasterizer(int width, int height, float fovY, Vector3 viewFrom, Vector3 viewAt);
 
 	~Rasterizer();
-
 	//copypaste inint kontext
 	int initOpenGL(int width, int height);
 	// nahradit to trojuhelnikove pole 3 bodu za to, co nacteme loadMash.
