@@ -185,6 +185,13 @@ int tutorial_1( const int width, const int height )
 	// GL_LOWER_LEFT (OpenGL) or GL_UPPER_LEFT (DirectX, Windows) and GL_NEGATIVE_ONE_TO_ONE or GL_ZERO_TO_ONE
 	glClipControl( GL_UPPER_LEFT, GL_NEGATIVE_ONE_TO_ONE ); // od -1 do 1
 
+
+
+
+
+
+
+
 	// setup vertex buffer as AoS (array of structures)
 	GLfloat vertices[] = // buffer - staticke pole
 	{
@@ -199,7 +206,12 @@ int tutorial_1( const int width, const int height )
 	{
 		0, 1, 2 // nepouzivame indexaci vertexu
 	};
-
+	struct Vertex {
+		Vector3 position;
+		//...
+	};
+	//std::vector<Vertex> verticies;
+	//verticies.push_back(vertices.get(0).position);
 	GLuint vao = 0;
 	glGenVertexArrays( 1, &vao ); //vygeneruj mi jeden vertex array, dej mi jeho ID do vao. Vao udrzuje info okolo vsecho
 	glBindVertexArray( vao ); // "odted pouzivej vao pro vsec o potrebujes."
@@ -207,6 +219,7 @@ int tutorial_1( const int width, const int height )
 	glGenBuffers( 1, &vbo ); // generate vertex buffer object (one of OpenGL objects) and get the unique ID corresponding to that buffer
 	glBindBuffer( GL_ARRAY_BUFFER, vbo ); // bind the newly created buffer to the GL_ARRAY_BUFFER target
 	glBufferData( GL_ARRAY_BUFFER, sizeof( vertices ), vertices, GL_STATIC_DRAW ); // copies the previously defined vertex data into the buffer's memory
+	//glBufferData( GL_ARRAY_BUFFER, sizeof( Vertex )*verticies.size(), verticies.data(), GL_STATIC_DRAW ); // copies the previously defined vertex data into the buffer's memory
 	// vertex position
 	glVertexAttribPointer( 0, 3, GL_FLOAT, GL_FALSE, vertex_stride, 0 ); // definujeme co jsme do bufferu na grafiku prave nasypali
 	// první 3 jsou nenormalizovane floaty, se skokem vertexh_stride (fyzicka velikost v bitech (tady 20), ne delka pole)
@@ -263,7 +276,7 @@ int tutorial_1( const int width, const int height )
 
 		GLint viewport[4];
 		glGetIntegerv( GL_VIEWPORT, viewport );
-		//TODO spocitat si 
+		// TODO spocitat si 
 		//spocitam si projekcni matici, tohle je ortoprojekce bo nastavuju jen ty dva prvky
 		Matrix4x4 P = Matrix4x4();
 		//P.set( 0, 0, float( std::min( viewport[2], viewport[3] ) ) / viewport[2] );
@@ -406,6 +419,7 @@ int tutorial_7( const std::string & file_name )
 
 				for ( int i = 0; i < 3; ++i ) //pro kazdy bod
 				{
+					//data.push_back(Vertex{ src_triangle.position(i) });
 					dst_triangle.vertices[i * 2].position = src_triangle.position( i );
 					dst_triangle.vertices[i * 2].position.Print();
 					dst_triangle.vertices[i * 2].normal = src_triangle.normal( i );
@@ -499,6 +513,5 @@ int tutorial_8()
 
 int my_tut() {
 	Rasterizer rasterizer = Rasterizer(640, 720, 0.66, Vector3(10,0,10),Vector3(0,0,0));
-	Camera camera = Camera();
 	return 0;
 }

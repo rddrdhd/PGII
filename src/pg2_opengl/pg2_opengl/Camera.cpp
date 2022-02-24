@@ -3,7 +3,7 @@
 #include "Camera.h"
 
 Camera::Camera() {
-	Camera(640, 480, 0.785f, Vector3(1, 1, 1), Vector3(1, 1, 1), 0.1f, 99.0f);
+	Camera(640, 480, 0.785f, Vector3(1, 1, 1), Vector3(1, 1, 1), 1.0f, 99.0f);
 };
 
 
@@ -20,6 +20,8 @@ Camera::Camera(const int width, const int height, const float fov_y, const Vecto
 
 	this->near_plane_distance_ = near_plane;
 	this->far_plane_distance_ = far_plane;
+	this->buildViewMatrix();
+	this->buildProjectionMatrix();
 }
 int Camera::buildViewMatrix()
 {
@@ -35,11 +37,12 @@ int Camera::buildViewMatrix()
 
 
 	this->view_matrix_ = Matrix4x4(x_c, y_c, z_c, this->view_from_); // TODO tohle neni dobre
-	//printf(this->view_matrix_.toString().c_str());
+	//printf(this->view_matrix_.toString().c_str()); jaj
 	return 0;
 }
 int Camera::buildProjectionMatrix()
 {
+	// návod? https://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix
 	float n = this->near_plane_distance_;
 	Vector3 v = this->view_at_;
 
@@ -62,5 +65,8 @@ void Camera::update(int width, int height) {
 
 	float aspect = (float)this->width_ / (float)this->height_;
 	this->fov_x_ = 2 * atan(aspect * tan(this->fov_y_ / 2.0f));
+	
+	this->buildViewMatrix();
+	this->buildProjectionMatrix();
 	
 }
