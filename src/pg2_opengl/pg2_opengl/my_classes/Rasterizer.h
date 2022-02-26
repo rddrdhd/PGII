@@ -7,12 +7,23 @@ bool check_gl_1(const GLenum error = glGetError());
 void GLAPIENTRY gl_callback_1(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* user_param);
 void framebuffer_resize_callback_1(GLFWwindow* window, int width, int height);
 
+typedef struct MyVertex {
+	float x, y, z;			// position
+	float n_x, n_y, n_z;	// normal
+	float t_x, t_y, t_z;	// tangent
+	float u, v;				// texture coordinates
+	int material_index;
+};
 
 class Rasterizer
 {
 private:
 	Camera camera;
 	GLFWwindow* window;
+	std::vector<MyVertex> vertices;
+	//SceneGraph scene;
+	//MaterialLibrary materials;
+
 public:
 	Rasterizer(int width, int height, float fovY, Vector3 viewFrom, Vector3 viewAt);
 
@@ -23,8 +34,7 @@ public:
 	int initBuffer(); // VBO atd
 	int initShaders(); // nazvy files ve kterych mame shadery, ted mame dva. Podle tutorialus
 	int mainLoop(); // z tutorialu
-	//SceneGraph scene;
-	//MaterialLibrary materials;
+	std::vector<MyVertex> getVertices(){ return this->vertices; };
 	
 };
 #endif

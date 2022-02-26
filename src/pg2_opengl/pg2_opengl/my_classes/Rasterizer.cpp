@@ -103,8 +103,13 @@ int Rasterizer::initOpenGL(int width, int height)
 int Rasterizer::loadMesh(const std::string& file_name) {
 	SceneGraph scene; // scena a materialy
 	MaterialLibrary materials;
-
+	//TODO nechce nacist tridni scene a material
 	LoadOBJ(file_name, scene, materials);
+
+	for (SceneGraph::iterator iter = scene.begin();iter != scene.end();++iter) {
+		printf("iter!");
+	}
+
 	return 0;
 }
 int Rasterizer::initBuffer() {
