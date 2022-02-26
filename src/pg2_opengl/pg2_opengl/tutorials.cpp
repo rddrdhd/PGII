@@ -523,7 +523,8 @@ int my_tut() {
 	// Output Merger takes color and depth and returs better color. Can apply blending from Render Target and Depth Buffer
 
 	Rasterizer rasterizer = Rasterizer(640, 480, deg2rad(45.0f), Vector3(-200, -300, 200), Vector3(0, 0, 40));
-	rasterizer.loadMash("a");
+	rasterizer.initOpenGL(640, 480);
+	rasterizer.loadMesh("../../../data/adjacent_triangles.obj");
 	rasterizer.initBuffer();
 	rasterizer.initShaders();
 	rasterizer.mainLoop();

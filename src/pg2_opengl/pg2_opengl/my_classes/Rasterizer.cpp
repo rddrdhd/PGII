@@ -2,6 +2,7 @@
 #include "Rasterizer.h"
 #include "Camera.h"
 
+#include "objloader.h"
 Rasterizer::Rasterizer(int width, int height, float fovY, Vector3 viewFrom, Vector3 viewAt) {
 	this->camera = Camera(width, height, fovY, viewFrom, viewAt, 1.0f, 99.0f);
 
@@ -61,14 +62,14 @@ int Rasterizer::initOpenGL(int width, int height)
 	glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
 
 	this->window = glfwCreateWindow(width, height, "PG2 OpenGL", nullptr, nullptr);
-	if (!window)
+	if (!this->window)
 	{
 		glfwTerminate();
 		return EXIT_FAILURE;
 	}
 
-	glfwSetFramebufferSizeCallback(window, framebuffer_resize_callback_1); // zavola se resize callback
-	glfwMakeContextCurrent(window); //fukce opengl muzeme volat jen z vlakna, ze ktereho jsme hoh vytvorili. Drahe, ale funkcni.
+	glfwSetFramebufferSizeCallback(this->window, framebuffer_resize_callback_1); // zavola se resize callback
+	glfwMakeContextCurrent(this->window); //fukce opengl muzeme volat jen z vlakna, ze ktereho jsme hoh vytvorili. Drahe, ale funkcni.
 
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) // umozni folani funkci z opengl
@@ -99,7 +100,11 @@ int Rasterizer::initOpenGL(int width, int height)
 	return 0;
 }
 
-int Rasterizer::loadMash(const std::string& file_name) {
+int Rasterizer::loadMesh(const std::string& file_name) {
+	SceneGraph scene; // scena a materialy
+	MaterialLibrary materials;
+
+	LoadOBJ(file_name, scene, materials);
 	return 0;
 }
 int Rasterizer::initBuffer() {
