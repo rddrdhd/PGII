@@ -12,6 +12,7 @@ class Rasterizer
 {
 private:
 	Camera camera;
+	GLFWwindow* window;
 public:
 	Rasterizer(int width, int height, float fovY, Vector3 viewFrom, Vector3 viewAt);
 

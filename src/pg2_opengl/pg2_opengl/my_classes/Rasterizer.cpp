@@ -60,7 +60,7 @@ int Rasterizer::initOpenGL(int width, int height)
 	glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 	glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
 
-	GLFWwindow* window = glfwCreateWindow(width, height, "PG2 OpenGL", nullptr, nullptr);
+	this->window = glfwCreateWindow(width, height, "PG2 OpenGL", nullptr, nullptr);
 	if (!window)
 	{
 		glfwTerminate();
@@ -96,11 +96,9 @@ int Rasterizer::initOpenGL(int width, int height)
 	// GL_LOWER_LEFT (OpenGL) or GL_UPPER_LEFT (DirectX, Windows) and GL_NEGATIVE_ONE_TO_ONE or GL_ZERO_TO_ONE
 	glClipControl(GL_UPPER_LEFT, GL_NEGATIVE_ONE_TO_ONE); // od -1 do 1
 
-
-
-
 	return 0;
 }
+
 int Rasterizer::loadMash(const std::string& file_name) {
 	return 0;
 }
