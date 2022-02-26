@@ -6,7 +6,6 @@
 #include "pgmath.h"
 
 
-
 class Camera
 {
 private:
