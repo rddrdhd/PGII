@@ -3,7 +3,8 @@
 
 #include "vector3.h"
 #include "pgmath.h"
-
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 bool check_gl( const GLenum error = glGetError() );
 void glfw_callback( const int error, const char * description );
 void GLAPIENTRY gl_callback( GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar * message, const void * user_param );

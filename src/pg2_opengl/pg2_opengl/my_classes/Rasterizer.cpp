@@ -8,3 +8,16 @@ Rasterizer::Rasterizer(int width, int height, float fovY, Vector3 viewFrom, Vect
 	//this->light = std::make_shared<Directional>(Vector3{ -200, -300, 200 }, Vector3{ 0, 0, 0 }, deg2rad(45), 1024, 1024);
 	//this->light = std::make_shared<Directional>(Vector3 {50, 0, 0}, Vector3 {0, 0, 0}, deg2rad(45), 1024, 1024);
 }
+
+int Rasterizer::loadMash(const std::string& file_name) {
+	return 0;
+}
+int Rasterizer::initBuffer() {
+	return 0;
+}
+int Rasterizer::initShaders() {
+	return 0;
+}
+int Rasterizer::mainLoop() {
+	return 0;
+}

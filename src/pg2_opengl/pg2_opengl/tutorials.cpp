@@ -522,6 +522,10 @@ int my_tut() {
 	// Pixel Shader takes texture and sampler, returns color
 	// Output Merger takes color and depth and returs better color. Can apply blending from Render Target and Depth Buffer
 
-	Rasterizer rasterizer = Rasterizer(640, 720, 0.66, Vector3(10,0,10),Vector3(0,0,0));
+	Rasterizer rasterizer = Rasterizer(640, 480, deg2rad(45.0f), Vector3(-200, -300, 200), Vector3(0, 0, 40));
+	rasterizer.loadMash("a");
+	rasterizer.initBuffer();
+	rasterizer.initShaders();
+	rasterizer.mainLoop();
 	return 0;
 }
