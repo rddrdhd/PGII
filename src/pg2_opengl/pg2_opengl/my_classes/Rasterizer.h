@@ -1,7 +1,6 @@
 #pragma once
 #ifndef RASTERIZE_H_
 #define RASTERIZE_H_
-#include "pch.h"
 #include "Camera.h"
 class Rasterizer
 {
@@ -19,6 +18,7 @@ public:
 	int mainLoop(); // z tutorialu
 	//SceneGraph scene;
 	//MaterialLibrary materials;
+	bool check_gl(const GLenum error);
 
 	
 };

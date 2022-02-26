@@ -1,6 +1,5 @@
 #ifndef TUTORIALS_H_
 #define TUTORIALS_H_
-#include "pch.h"
 #include "vector3.h"
 #include "pgmath.h"
 bool check_gl( const GLenum error = glGetError() );

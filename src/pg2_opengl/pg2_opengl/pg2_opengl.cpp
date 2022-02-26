@@ -18,7 +18,7 @@ int main()
 		printf("%s: %0.3f\n", key.c_str(), value);
 		int i;
 	}*/
-	return tutorial_1();
+	//return tutorial_1();
 	//nvidia 511 driver?
 	//return tutorial_2();
 	//return tutorial_3( "../../../data/environments/abandoned_hopper_terminal_04_1k.jpg" );
@@ -27,5 +27,5 @@ int main()
 	//return tutorial_6();
 	//return tutorial_7( "../../../data/adjacent_triangles.obj" ); //jeden trojuhelnik slozeny ze 4
 	//return tutorial_8();
-	//return my_tut();
+	return my_tut();
 }
