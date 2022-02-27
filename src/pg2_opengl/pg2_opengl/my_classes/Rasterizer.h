@@ -21,6 +21,9 @@ private:
 	Camera camera;
 	GLFWwindow* window;
 	std::vector<MyVertex> vertices;
+	GLuint vao;
+	GLuint vbo;
+
 	//SceneGraph scene;
 	//MaterialLibrary materials;
 
