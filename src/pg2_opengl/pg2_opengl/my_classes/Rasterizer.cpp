@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Rasterizer.h"
 #include "Camera.h"
+#include "Triangle.h"
 
 #include "objloader.h"
 Rasterizer::Rasterizer(int width, int height, float fovY, Vector3 viewFrom, Vector3 viewAt) {
@@ -11,8 +12,7 @@ Rasterizer::Rasterizer(int width, int height, float fovY, Vector3 viewFrom, Vect
 }
 
 /* OpenGL check state */
-bool check_gl_1(const GLenum error)
-{
+bool check_gl_1(const GLenum error) {
 	if (error != GL_NO_ERROR)
 	{
 		//const GLubyte * error_str;
@@ -26,27 +26,23 @@ bool check_gl_1(const GLenum error)
 }
 
 /* glfw callback */
-void glfw_callback_1(const int error, const char* description)
-{
+void glfw_callback_1(const int error, const char* description) {
 	printf("GLFW Error (%d): %s\n", error, description);
 }
 
 /* OpenGL messaging callback */
-void GLAPIENTRY gl_callback_1(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* user_param)
-{
+void GLAPIENTRY gl_callback_1(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* user_param) {
 	printf("GL %s type = 0x%x, severity = 0x%x, message = %s\n",
 		(type == GL_DEBUG_TYPE_ERROR ? "Error" : "Message"),
 		type, severity, message);
 }
 
 /* invoked when window is resized */
-void framebuffer_resize_callback_1(GLFWwindow* window, int width, int height)
-{
+void framebuffer_resize_callback_1(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
 }
 
-int Rasterizer::initOpenGL(int width, int height)
-{
+int Rasterizer::initOpenGL(int width, int height) {
 	glfwSetErrorCallback(glfw_callback_1);
 
 	if (!glfwInit())
@@ -107,7 +103,12 @@ int Rasterizer::loadMesh(const std::string& file_name) {
 	LoadOBJ(file_name, scene, materials);
 
 	for (SceneGraph::iterator iter = scene.begin();iter != scene.end();++iter) {
-		printf("iter!");
+
+		printf("Triangle's points:\n");
+		for (int i = 0; i < 3; ++i) {//pro kazdy bod
+			printf("| ");
+
+		}
 	}
 
 	return 0;

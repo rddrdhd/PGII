@@ -164,8 +164,11 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="my_classes\Rasterizer.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="my_classes\Triangle.h" />
+    <ClInclude Include="my_classes\Surface.h" />
     <ClInclude Include="tutorials.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="my_classes\Vertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\libs\glad\src\glad.cpp" />
@@ -179,8 +182,11 @@
     </ClCompile>
     <ClCompile Include="pg2_opengl.cpp" />
     <ClCompile Include="my_classes\Rasterizer.cpp" />
+    <ClCompile Include="my_classes\Triangle.cpp" />
+    <ClCompile Include="my_classes\Surface.cpp" />
     <ClCompile Include="tutorials.cpp" />
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="my_classes\Vertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\.gitignore" />
