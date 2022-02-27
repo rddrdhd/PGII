@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Triangle.h"
 
-Triangle::Triangle(const Vertex& v0, const Vertex& v1, const Vertex& v2, Surface* surface)
+Triangle::Triangle(Vertex& v0,Vertex& v1,Vertex& v2, Surface* surface)
 {
 	vertices_[0] = v0;
 	vertices_[1] = v1;

@@ -110,56 +110,32 @@ int Rasterizer::loadMesh(const std::string& file_name) {
 		int material_index; /* material index */
 	};
 
-	struct TriangleWithAdjacency {
-		std::array<Vertex, 6> vertices;
-	} dst_triangle;
-
-	std::vector<TriangleWithAdjacency> triangles;
+	std::vector<Triangle> triangles;
 	// dostat se k jedotlivym geometriim z .obj
 	for (SceneGraph::iterator iter = scene.begin();iter != scene.end();++iter) {// pro kazdy mesh
 		const std::string& node_name = iter->first;
 		const auto& node = iter->second;
 
 		const auto& mesh = std::static_pointer_cast<Mesh>(node);
-
+		int k = 0;
 		if (mesh) {
 			for (Mesh::iterator iter = mesh->begin(); iter != mesh->end(); ++iter){ // pro kazdy trojuhelnik
 			
 				const auto& src_triangle = Triangle3i(**iter);
 				std::shared_ptr<Material> material = iter.triangle_material();
 				const int material_index = int(std::distance(std::begin(materials), materials.find(material->name())));
-
+				Triangle triangle = Triangle();
+				//triangle.setVertex(0,Vertex{src_triangle.position(0)})
+				//printf("Adjacent vertices:\n");
+				//TODO
 				printf("Triangle:\n");
-
-				for (int i = 0; i < 3; ++i){ //pro kazdy bod
-					//data.push_back(Vertex{ src_triangle.position(i) });
-					dst_triangle.vertices[i * 2].position = src_triangle.position(i);
-					dst_triangle.vertices[i * 2].position.Print();
-					dst_triangle.vertices[i * 2].normal = src_triangle.normal(i);
-					dst_triangle.vertices[i * 2].color = Vector3(1.0f, 1.0f, 1.0f);
-					dst_triangle.vertices[i * 2].texture_coord = Vector2(src_triangle.texture_coord(i).x, src_triangle.texture_coord(i).y);
-					dst_triangle.vertices[i * 2].tangent = src_triangle.tangent(i);
-					dst_triangle.vertices[i * 2].material_index = material_index;
-
-					dst_triangle.vertices[i * 2 + 1].position = src_triangle.adjacent_vertex_position(i).value_or(Vector3());
-					dst_triangle.vertices[i * 2 + 1].normal = Vector3();
-					dst_triangle.vertices[i * 2 + 1].color = Vector3();
-					dst_triangle.vertices[i * 2 + 1].texture_coord = Vector2();
-					dst_triangle.vertices[i * 2 + 1].tangent = Vector3();
-					dst_triangle.vertices[i * 2 + 1].material_index = -1;
-				}
-
-				triangles.push_back(dst_triangle);
-
-
-				printf("Adjacent vertices:\n");
-
 				for (int i = 0; i < 3; ++i) {
 					std::optional<Vector3> av = src_triangle.adjacent_vertex_position(i);
+					printf("[%d] ", i);
 					if (av.has_value()) {
 						av.value().Print();
 					} else {
-						printf("-\n");
+						printf("none\n");
 					}
 				}
 			}
