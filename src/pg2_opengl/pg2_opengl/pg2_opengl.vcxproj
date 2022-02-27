@@ -159,16 +159,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="my_classes\Material.h" />
     <ClInclude Include="my_classes\Camera.h" />
     <ClInclude Include="glutils.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="my_classes\Rasterizer.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="my_classes\Structs.h" />
+    <ClInclude Include="my_classes\MyTriangle.h" />
+    <ClInclude Include="my_classes\Surface.h" />
     <ClInclude Include="tutorials.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="my_classes\MyVertex.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\libs\glad\src\glad.cpp" />
+    <ClCompile Include="my_classes\Material.cpp" />
     <ClCompile Include="my_classes\Camera.cpp" />
     <ClCompile Include="glutils.cpp" />
     <ClCompile Include="pch.cpp">
@@ -179,8 +185,12 @@
     </ClCompile>
     <ClCompile Include="pg2_opengl.cpp" />
     <ClCompile Include="my_classes\Rasterizer.cpp" />
+    <ClCompile Include="my_classes\Structs.cpp" />
+    <ClCompile Include="my_classes\MyTriangle.cpp" />
+    <ClCompile Include="my_classes\Surface.cpp" />
     <ClCompile Include="tutorials.cpp" />
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="my_classes\MyVertex.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\.gitignore" />

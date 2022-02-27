@@ -1,6 +1,6 @@
 #include "pch.h"
-#include <iostream>
 #include "Camera.h"
+#include <iostream>
 
 Camera::Camera() {
 	Camera(640, 480, 0.785f, Vector3(1, 1, 1), Vector3(1, 1, 1), 1.0f, 99.0f);

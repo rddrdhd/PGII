@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Rasterizer.h"
 #include "Camera.h"
-
 #include "objloader.h"
+
 Rasterizer::Rasterizer(int width, int height, float fovY, Vector3 viewFrom, Vector3 viewAt) {
 	this->camera = Camera(width, height, fovY, viewFrom, viewAt, 1.0f, 99.0f);
 
@@ -107,8 +107,16 @@ int Rasterizer::loadMesh(const std::string& file_name) {
 	LoadOBJ(file_name, scene, materials);
 
 	for (SceneGraph::iterator iter = scene.begin();iter != scene.end();++iter) {
-		printf("iter!");
+		const std::string& node_name = iter->first;
+		const auto& node = iter->second;
+
+		const auto& mesh = std::static_pointer_cast<Mesh>(node);
+		printf("Triangle:\n");
+		for (int i = 0; i < 3; ++i) {//pro kazdy bod
+			printf("BOD!\n");
+		}
 	}
+
 
 	return 0;
 }

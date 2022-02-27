@@ -1,7 +1,10 @@
 #pragma once
 #ifndef RASTERIZE_H_
 #define RASTERIZE_H_
+
+#include "Surface.h"
 #include "Camera.h"
+
 void glfw_callback_1(const int error, const char* description);
 bool check_gl_1(const GLenum error = glGetError());
 void GLAPIENTRY gl_callback_1(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* user_param);
@@ -15,12 +18,12 @@ typedef struct MyVertex {
 	int material_index;
 };
 
-class Rasterizer
-{
+class Rasterizer {
 private:
 	Camera camera;
 	GLFWwindow* window;
 	std::vector<MyVertex> vertices;
+	std::vector<Surface*> surfaces;
 	//SceneGraph scene;
 	//MaterialLibrary materials;
 
